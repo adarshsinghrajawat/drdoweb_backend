@@ -6,7 +6,7 @@ var upload=require('./multer')
 /* GET users listing. */
 router.post('/submit_promotion', function(req, res, next) {
   try{ 
-  pool.query('insert into promotions (employeecode,employeename,previouspost,promotedpost,promotiondate) values(?,?,?,?)',[req.body.employeecode,req.body.employeename,req.body.previouspost,req.body.promotedpost,req.body.promotiondate],function(error,result){
+  pool.query('insert into promotions (employeecode,employeename,previouspost,promotedpost,promotiondate) values(?,?,?,?, ?)',[req.body.employeecode,req.body.employeename,req.body.previouspost,req.body.promotedpost,req.body.promotiondate],function(error,result){
 
     if(error)
     {
