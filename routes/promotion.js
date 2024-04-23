@@ -24,5 +24,26 @@ router.post('/submit_promotion', function(req, res, next) {
 
   }
   });
+
+  router.get('/display_all_promotion', function(req, res, next) {
+    try{ 
+    pool.query('select * from promotions',function(error,result){
+  
+      if(error)
+      {
+           res.status(200).json({status:false,message:'Database Error, Please Contact database admin'})
+      }
+      else
+      {
+        res.status(200).json({data:result,status:true,message:'Success'})
+      }
+     })
+    }
+    catch(e)
+    {
+      res.status(200).json({status:false,message:'Server Error....'})
+  
+    }
+    });
   
   module.exports = router;
