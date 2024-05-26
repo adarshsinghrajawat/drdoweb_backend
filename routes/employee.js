@@ -235,5 +235,26 @@ router.post('/submit_employee', function(req, res, next) {
                 
                   }
                   });
+
+                  router.post('/edit_bookdetail', function(req, res, next) {
+                    try{ 
+                    pool.query('update bookdetail set lno=?, author=?, title1=?, title2=?, title3=?, edition=?, place=?, publisher=?, volume=?, year=?, cost=?, forncost=?, qty=?, noremd=?, rem=?, crvno=?, status=?, itemcode=? where bookdetailid=?',[req.body.lno, req.body.author, req.body.title1, req.body.title2, req.body.title3,req.body.edition, req.body.place, req.body.publisher, req.body.volume, req.body.year,req.body.cost, req.body.forncost, req.body.qty, req.body.noremd, req.body.rem,req.body.crvno, req.body.status, req.body.itemcode, req.body.bookdetailid],function(error,result){
+                     
+                      if(error)
+                      {console.log(error)
+                           res.status(200).json({status:false,message:'Database Error, Please Contact database admin'})
+                      }
+                      else
+                      {
+                        res.status(200).json({status:true,message:'Book Added Successfully'})
+                      }
+                     })
+                    }
+                    catch(e)
+                    {
+                      res.status(200).json({status:false,message:'Server Error....'})
+                  
+                    }
+                    });
   
   module.exports = router;
