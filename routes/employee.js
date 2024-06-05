@@ -68,6 +68,8 @@ router.post('/submit_employee', function(req, res, next) {
         }
         });
 
+
+        
         router.post('/submit_issue', function(req, res, next) {
             try{ 
             pool.query('insert into issue (issuedate,issueto,returndate,accessionnumber,returnby,rby) values(?,?,?,?,?,?)',[req.body.issuedate,req.body.issueto,req.body.returndate,req.body.accessionnumber,req.body.returnby,req.body.rby],function(error,result){
@@ -256,5 +258,133 @@ router.post('/submit_employee', function(req, res, next) {
                   
                     }
                     });
+
+                    router.post('/submit_publisher', function(req, res, next) {
+                      try{ 
+                      pool.query('insert into publisher (pubcode, pubname, source, suppadd1, suppadd2) values(?,?,?,?,?)',[ req.body.pubcode, req.body.pubname, req.body.source, req.body.suppadd1, req.body.suppadd2],function(error,result){
+                       
+                        if(error)
+                        {console.log(error)
+                             res.status(200).json({status:false,message:'Database Error, Please Contact database admin'})
+                        }
+                        else
+                        {
+                          res.status(200).json({status:true,message:'Promotion Added Successfully'})
+                        }
+                       })
+                      }
+                      catch(e)
+                      {
+                        res.status(200).json({status:false,message:'Server Error....'})
+                    
+                      }
+                      });
+
+                      router.post('/submit_supplier', function(req, res, next) {
+                        try{ 
+                        
+                        pool.query('insert into supplier ( supplycode, supplyname, supplyaddress) values(?,?,?)',[  req.body.supplycode, req.body.supplyname, req.body.supplyaddress],function(error,result){
+                         
+                          if(error)
+                          {console.log(error)
+                               res.status(200).json({status:false,message:'Database Error, Please Contact database admin'})
+                          }
+                          else
+                          {
+                            res.status(200).json({status:true,message:'Promotion Added Successfully'})
+                          }
+                         })
+                        }
+                        catch(e)
+                        {
+                          res.status(200).json({status:false,message:'Server Error....'})
+                      
+                        }
+                        });
+
+                        router.get('/display_all_supplier', function(req, res, next) {
+                          try{ 
+                          pool.query('select * from supplier',function(error,result){
+                        
+                            if(error)
+                            {console.log(error)
+                                 res.status(200).json({status:false,message:'Database Error, Please Contact database admin'})
+                            }
+                            else
+                            {
+                              res.status(200).json({data:result,status:true,message:'Success'})
+                            }
+                           })
+                          }
+                          catch(e)
+                          {
+                            res.status(200).json({status:false,message:'Server Error....'})
+                        
+                          }
+                          });
+
+                          router.get('/display_all_issue', function(req, res, next) {
+                            try{ 
+                            pool.query('select * from issue',function(error,result){
+                          
+                              if(error)
+                              {console.log(error)
+                                   res.status(200).json({status:false,message:'Database Error, Please Contact database admin'})
+                              }
+                              else
+                              {
+                                res.status(200).json({data:result,status:true,message:'Success'})
+                              }
+                             })
+                            }
+                            catch(e)
+                            {
+                              res.status(200).json({status:false,message:'Server Error....'})
+                          
+                            }
+                            });
+
+                          router.post('/edit_supplier', function(req, res, next) {
+                            try{ 
+                            pool.query('update supplier set supplycode=?,supplyname=?, supplyaddress=? where supplierid=?',[ req.body.supplycode,req.body.supplyname,req.body.supplyaddress,req.body.supplierid],function(error,result){
+                             
+                              if(error)
+                              {console.log(error)
+                                   res.status(200).json({status:false,message:'Database Error, Please Contact database admin'})
+                              }
+                              else
+                              {
+                                res.status(200).json({status:true,message:'Book Updated Successfully'})
+                              }
+                             })
+                            }
+                            catch(e)
+                            {
+                              res.status(200).json({status:false,message:'Server Error....'})
+                          
+                            }
+                            });
+
+                            router.post('/edit_issue', function(req, res, next) {
+                              try{ 
+                              pool.query('update issue set  issuedate=?, issueto=?, returndate=?, accessionnumber=?, returnby=?, rby=? where issueid=?',[ req.body.issuedate, req.body.issueto, req.body.returndate, req.body.accessionnumber, req.body.returnby, req.body.rby, req.body.issueid],function(error,result){
+                               
+                                if(error)
+                                {console.log(error)
+                                     res.status(200).json({status:false,message:'Database Error, Please Contact database admin'})
+                                }
+                                else
+                                {
+                                  res.status(200).json({status:true,message:'Book Updated Successfully'})
+                                }
+                               })
+                              }
+                              catch(e)
+                              {
+                                res.status(200).json({status:false,message:'Server Error....'})
+                            
+                              }
+                              });
+            
   
   module.exports = router;
